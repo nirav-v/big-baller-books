@@ -3,7 +3,7 @@ const path = require('path');
 // apollo server class imported
 const { ApolloServer } = require('apollo-server-express');
 
-// importing typedefs and resolvers from the graphql schema
+// importing typeDefs and resolvers from the graphql schema
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 // const routes = require('./routes');
@@ -24,13 +24,14 @@ app.get('/', (req, res) => {
 });
 
 
-// Create a new instance of an Apollo server with the GraphQL schema
+// Create a new instance of an Apollo server class with the GraphQL schema's typeDefs and resolvers as parameters
 const startApolloServer = async (typeDefs, resolvers) => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
   });  
   await server.start();
+  // connect express app with apollo middleware
   server.applyMiddleware({ app });
   
   db.once('open', () => {
