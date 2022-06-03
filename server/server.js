@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 // apollo server class imported
 const { ApolloServer } = require('apollo-server-express');
+// import middleware for authorizing user token 
+const {authMiddleware} = require('./utils/auth')
 
 // importing typeDefs and resolvers from the graphql schema
 const { typeDefs, resolvers } = require('./schemas');
@@ -29,7 +31,9 @@ const startApolloServer = async (typeDefs, resolvers) => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    context: authMiddleware,
   });  
+
   await server.start();
   // connect express app with apollo middleware
   server.applyMiddleware({ app });
@@ -44,9 +48,3 @@ const startApolloServer = async (typeDefs, resolvers) => {
   
 // Call the async function to start the server
   startApolloServer(typeDefs, resolvers);
-
-// app.use(routes);
-
-// db.once('open', () => {
-//   app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
-// });
