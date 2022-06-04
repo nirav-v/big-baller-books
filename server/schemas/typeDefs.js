@@ -54,7 +54,8 @@ const typeDefs = gql`
 
      saveBook(bookId: String!, authors: [String], description: String!, title: String!, image: String, link: String): User
 
-"""   # saveBook(input: Book): User"""
+"""   # saveBook(input: Book): User
+"""
 
     removeBook(bookId: String!): User
   }
