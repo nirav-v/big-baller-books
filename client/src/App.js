@@ -36,6 +36,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+// providing the apollo client server, with auth and cache set up, to all react components below
 function App() {
   return (
     <ApolloProvider client={client}>
