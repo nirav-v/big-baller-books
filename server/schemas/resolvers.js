@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Book } = require("../models");
+const { User } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -40,11 +40,12 @@ const resolvers = {
       context
     ) => {
       if (context.user) {
-        const newBook = await Book.create({ bookId, title, description, authors, image, link })
+        // const newBook = await Book.create({ bookId, title, description, authors, image, link })
         return User.findOneAndUpdate(
           { _id: context.user._id },
+          
           {
-            $addToSet: { savedBooks: newBook},
+            $addToSet: { savedBooks:  { bookId, title, description, authors, image, link  } },
           },
           {
             new: true,
