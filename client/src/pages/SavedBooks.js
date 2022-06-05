@@ -32,7 +32,7 @@ const SavedBooks = () => {
         console.log(error);
       }
       if (data) {
-        console.log("get me query:", data.me);
+        // console.log("get me query:", data.me);
         setUserData(data.me);
       }
 
@@ -57,7 +57,6 @@ const SavedBooks = () => {
         },
       });
       //  document.location.replace('/saved');
-      console.log('updatedSavedBooks =', updatedSavedBooks.data.removeBook);
        setUserData( updatedSavedBooks.data.removeBook);
 
       // upon success, remove book's id from localStorage
