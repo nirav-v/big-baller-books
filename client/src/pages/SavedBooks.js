@@ -13,7 +13,7 @@ import { removeBookId } from "../utils/localStorage";
 
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_ME } from "../utils/queries";
-import {REMOVE_BOOK} from "../utils/mutations";
+import { REMOVE_BOOK } from "../utils/mutations";
 
 const SavedBooks = () => {
   const [userData, setUserData] = useState({});
@@ -25,19 +25,23 @@ const SavedBooks = () => {
   // cannot access data.me from get me query before it loads
   useEffect(() => {
     try {
+      if (loading) {
+        console.log("loading..");
+      }
       if (error) {
         console.log(error);
       }
-      if (!loading) {
+      if (data) {
         console.log("get me query:", data.me);
         setUserData(data.me);
       }
+
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [userDataLength]);
 
-   const [removeBook ] = useMutation(REMOVE_BOOK);
+  const [removeBook] = useMutation(REMOVE_BOOK);
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -47,23 +51,15 @@ const SavedBooks = () => {
     }
 
     try {
-      // const response = await deleteBook(bookId, token);
+      const updatedSavedBooks = await removeBook({
+        variables: {
+          bookId: bookId,
+        },
+      });
+      //  document.location.replace('/saved');
+      console.log('updatedSavedBooks =', updatedSavedBooks.data.removeBook);
+       setUserData( updatedSavedBooks.data.removeBook);
 
-      // if (!response.ok) {
-      //   throw new Error("something went wrong!");
-      // }
-      const updatedSavedBooks = await removeBook(
-        {
-          variables: {
-            bookId: bookId
-        } 
-      }
-      )
-      // window.location.reload();
-      console.log(updatedSavedBooks)
-
-      // const updatedUser = await response.json();
-      // setUserData(data);
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
