@@ -55,12 +55,11 @@ const resolvers = {
       }
     },
 
-    removeBook: async (parent, { bookId }, context) => {
+    removeBook: async (parent,  {bookId} , context) => {
       if (context.user) {
-        await Book.findOneAndDelete({ bookId: { bookId } });
         return User.findOneAndUpdate(
-          { savedBooks: args.bookId },
-          { $pull: { savedBooks: { savedBooks: args.bookId } } },
+          { _id: context.user._id  },
+          { $pull: { savedBooks: {bookId } } },
           { new: true }
         );
       }
