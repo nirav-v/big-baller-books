@@ -2,8 +2,8 @@
 
 Big-Baller-Books utilizes the google books API in a full stack web application that allows users to login in, google different books, and save or delete books from their personal list. The code in this application was recently refactored from using a restful API with multiple routes, to using graphQL with Apollo Server. This eliminates the need for multiple endpoints to be requested, and instead allows a single query to be made to the server to retrieve exactly the data that is needed. This improves the overall performance of the site.
 
-deployed app: https://nirav-v.github.io/big-baller-books/
-
+deployed app: [https://nirav-v.github.io/big-baller-books/
+](https://guarded-shore-64766.herokuapp.com/)
 It is built with React and apollo client on the front-end, and Node.js for the backend with express, graphql, and apollo server. User authorization to save books and view profile info is done using JSON Web Tokens to verify credentials before rendering the requested page.
 
 The user interface is quite intuitive, featuring a nav bar with signup or login options, as well as the ability to search books even when not logged in. 
