@@ -1,5 +1,5 @@
 # Big-Baller-Books
-
+ <img src = "https://img.shields.io/badge/License-Mozilla Public License 2.0-blue" />
 ## Description
 Big-Baller-Books utilizes the google books API in a full stack web application that allows users to login in, google different books, and save or delete books from their personal list. The code in this application was recently refactored from using a restful API with multiple routes, to using graphQL with Apollo Server. This eliminates the need for multiple endpoints to be requested, and instead allows a single query to be made to the server to retrieve exactly the data that is needed. This improves the overall performance of the site.
 
